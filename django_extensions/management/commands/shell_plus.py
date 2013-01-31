@@ -110,18 +110,12 @@ class Command(NoArgsCommand):
             
             try:
                 imported_objects = import_objects(options, self.style)
+                import IPython
                 from IPython.frontend.terminal.embed import InteractiveShellEmbed
-                from IPython.config.loader import Config
-                cfg = Config()
+                cfgfile = "%s/.config/ipython/profile_default/ipython_config.py" % os.environ['HOME']
+                cfg = IPython.config.loader.PyFileConfigLoader(cfgfile).load_config()
                 from django.conf import settings
-                from colorama import Fore
-                prompt_config = cfg.PromptManager
-                #prompt_config.in_template = '[%s]\n In <\\#>: ' % getattr(settings, "STAGE", "")
                 appname = getattr(settings, "APPLICATION_NAME", "")    
-                stage = getattr(settings, "STAGE", "")
-                prompt_config.in_template = '[%s]\n $ ' % stage
-                prompt_config.in2_template = '   .\\D.: '
-                prompt_config.out_template = ''
                 ipshell = InteractiveShellEmbed(config=cfg, banner1=appname, user_ns=imported_objects)
                 ipshell()
             except ImportError:
