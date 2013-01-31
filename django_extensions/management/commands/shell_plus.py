@@ -117,10 +117,12 @@ class Command(NoArgsCommand):
                 from colorama import Fore
                 prompt_config = cfg.PromptManager
                 #prompt_config.in_template = '[%s]\n In <\\#>: ' % getattr(settings, "STAGE", "")
-                prompt_config.in_template = '[%s]\n $ ' % getattr(settings, "STAGE", "")
+                appname = getattr(settings, "APPLICATION_NAME", "")    
+                stage = getattr(settings, "STAGE", "")
+                prompt_config.in_template = '[%s]\n $ ' % stage
                 prompt_config.in2_template = '   .\\D.: '
                 prompt_config.out_template = ''
-                ipshell = InteractiveShellEmbed(config=cfg, banner1='DC Manager', user_ns=imported_objects)
+                ipshell = InteractiveShellEmbed(config=cfg, banner1=appname, user_ns=imported_objects)
                 ipshell()
             except ImportError:
                 # IPython < 0.11
