@@ -4,6 +4,13 @@
 
 Django Extensions is a collection of custom extensions for the Django Framework.
 
+Customizations of this fork
+===========================
+
+This fork changes the way the IPython shell is loaded to be able to add additional configuration and startup logic to the 
+Django shell. Also a sample IPython configuration is provided which adds the current development stage from settings.py 
+to the IPython prompt.
+
 Getting Started
 ===============
 
