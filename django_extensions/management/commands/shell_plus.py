@@ -107,10 +107,21 @@ class Command(NoArgsCommand):
             embed(imported_objects)
 
         def run_ipython():
+            
             try:
-                from IPython import embed
                 imported_objects = import_objects(options, self.style)
-                embed(user_ns=imported_objects)
+                from IPython.frontend.terminal.embed import InteractiveShellEmbed
+                from IPython.config.loader import Config
+                cfg = Config()
+                from django.conf import settings
+                from colorama import Fore
+                prompt_config = cfg.PromptManager
+                #prompt_config.in_template = '[%s]\n In <\\#>: ' % getattr(settings, "STAGE", "")
+                prompt_config.in_template = '[%s]\n $ ' % getattr(settings, "STAGE", "")
+                prompt_config.in2_template = '   .\\D.: '
+                prompt_config.out_template = ''
+                ipshell = InteractiveShellEmbed(config=cfg, banner1='DC Manager', user_ns=imported_objects)
+                ipshell()
             except ImportError:
                 # IPython < 0.11
                 # Explicitly pass an empty list as arguments, because otherwise
