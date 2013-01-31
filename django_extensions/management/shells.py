@@ -21,6 +21,17 @@ def import_objects(options, style):
 
     model_aliases = getattr(settings, 'SHELL_PLUS_MODEL_ALIASES', {})
 
+    import os, sys, pkgutil
+    if 'PYTHONSTARTUP' in os.environ:
+        try:
+            sys.path.append(os.environ['PYTHONSTARTUP'])
+            import startup
+            content = [element for element in dir(startup) if not element.startswith('__')]
+            for element in content:
+                imported_objects[element] = getattr(startup, element)
+        except Exception, ex:
+            sys.exit("Could not import startup module content, Error:\n%s" % ex)
+
     for app_mod in get_apps():
         app_models = get_models(app_mod)
         if not app_models:
