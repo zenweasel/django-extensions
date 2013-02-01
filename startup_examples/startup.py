@@ -44,6 +44,8 @@ def patch_django_db():
     CursorDebugWrapper.executemany = excecute_many_wrapper
 patch_django_db()
 
+# Can be used to show the current log level inside the prompt
+# (see ipython sample config how to use it)
 class LoggingInfo(object):
     def __str__(self):
         import logging

@@ -177,8 +177,16 @@ c = get_config()
 
 try:
     from django.conf import settings
-    # Show the Django stage in the shell
-    c.PromptManager.in_template = '[%s]\n $ ' % getattr(settings, "STAGE", "")
+    # Show if SQL logging is enabled ("loginfo" needs to be provided via a
+    # startup script). Show Django project stage, if defined.
+    # Show current path (\w).
+    c.PromptManager.in_template = r'{color.Red}{loginfo}{color.Normal}%s ' \
+                                  r'{color.Green}\w{color.Normal} ' \
+                                  r'{color.Blue}[%s]{color.Normal} \n' \
+                                  % (getattr(settings, "APPLICATION_NAME", ""),
+                                     getattr(settings, "STAGE", "")) + '{color.Green}[\#] $ '
+    c.PromptManager.out_template = ""
+    c.PromptManager.separate_out = ''
 except:
     pass
 
