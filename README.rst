@@ -13,7 +13,7 @@ It loads the users IPython configuration (from ~/.config/ipython/profile_default
 which can come in handy to add additional, django-project-specific functions and variables.
 
 A sample IPython configuration is provided which adds the current development stage from settings.py 
-to the IPython prompt.
+to the IPython prompt, if it's defined.
 
 I modified django_extensions/management/commands/shell_plus.py and django_extensions/management/shells.py.
 

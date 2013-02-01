@@ -177,7 +177,7 @@ c = get_config()
 
 try:
     from django.conf import settings
-    #c.PromptManager.in_template = '[%s]\n In <\\#>: ' % getattr(settings, "STAGE", "")
+    # Show the Django stage in the shell
     c.PromptManager.in_template = '[%s]\n $ ' % getattr(settings, "STAGE", "")
 except:
     pass
