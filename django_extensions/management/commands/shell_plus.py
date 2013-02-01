@@ -106,16 +106,15 @@ class Command(NoArgsCommand):
             imported_objects = import_objects(options, self.style)
             embed(imported_objects)
 
-        def run_ipython():
-            
+        def run_ipython():            
+            import IPython
+            from IPython.frontend.terminal.embed import InteractiveShellEmbed
+            from django.conf import settings
             try:
                 imported_objects = import_objects(options, self.style)
-                import IPython
-                from IPython.frontend.terminal.embed import InteractiveShellEmbed
                 cfgfile = "%s/.config/ipython/profile_default/ipython_config.py" % os.environ['HOME']
                 cfg = IPython.config.loader.PyFileConfigLoader(cfgfile).load_config()
-                from django.conf import settings
-                appname = getattr(settings, "APPLICATION_NAME", "")    
+                appname = "Welcome to the %s Shell.\n" % getattr(settings, "APPLICATION_NAME", "")
                 ipshell = InteractiveShellEmbed(config=cfg, banner1=appname, user_ns=imported_objects)
                 ipshell()
             except ImportError:
