@@ -116,13 +116,13 @@ class Command(NoArgsCommand):
                 cfg = IPython.config.loader.PyFileConfigLoader(cfgfile).load_config()
                 appname = "Welcome to the %s Shell.\n" % getattr(settings, "APPLICATION_NAME", "")
                 ipshell = InteractiveShellEmbed(config=cfg, banner1=appname, user_ns=imported_objects)
-				# An example how to define magics 
-				# the function _toggle_logging has to be provided by the PYTHONSTARTUP script,
+                # An example how to define magics
+                # the function _toggle_logging has to be provided by the PYTHONSTARTUP script,
                 # see django_extensions/management/shells.py
-				try:
-                	ipshell.define_magic('toggle_logging', imported_objects['_toggle_logging'])
-				except:
-					pass
+                try:
+                    ipshell.define_magic('toggle_logging', imported_objects['_toggle_logging'])
+                except:
+                    pass
                 ipshell()
             except ImportError:
                 # IPython < 0.11
