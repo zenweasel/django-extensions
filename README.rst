@@ -8,8 +8,19 @@ Customizations of this fork
 ===========================
 
 This fork changes the way the IPython shell is loaded to be able to add additional configuration and startup logic to the 
-Django shell. Also a sample IPython configuration is provided which adds the current development stage from settings.py 
+Django shell. 
+It loads the users IPython configuration (from ~/.config/ipython/profile_default) and allows to define a startup file, 
+which can come in handy to add additional, django-project-specific functions and variables.
+
+A sample IPython configuration is provided which adds the current development stage from settings.py 
 to the IPython prompt.
+
+I modified django_extensions/management/commands/shell_plus.py and django_extensions/management/shells.py.
+
+To load a file on start of the Django shell, you have to tell Django shell the path to your startup file via
+the environment variable PYTHONSTARTUP. The django-shell will automatically import all functions and variables from this 
+startup script.
+
 
 Getting Started
 ===============

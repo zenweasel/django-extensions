@@ -21,12 +21,12 @@ def import_objects(options, style):
 
     model_aliases = getattr(settings, 'SHELL_PLUS_MODEL_ALIASES', {})
 
-    import os, sys, pkgutil
+    import os, sys
     if 'PYTHONSTARTUP' in os.environ:
         try:
             sys.path.append(os.environ['PYTHONSTARTUP'])
             import startup
-            content = [element for element in dir(startup) if not element.startswith('__')]
+            content = [element for element in dir(startup)]
             for element in content:
                 imported_objects[element] = getattr(startup, element)
         except Exception, ex:
